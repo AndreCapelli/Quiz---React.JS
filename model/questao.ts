@@ -70,6 +70,14 @@ export default class QuestaoModel {
     );
   }
 
+  static fromObject(obj: QuestaoModel): QuestaoModel {
+    const respostas = obj.respostas.map((resp) =>
+      RespostaModel.fromObject(resp)
+    );
+
+    return new QuestaoModel(obj.id, obj.enunciado, respostas, obj.acertou);
+  }
+
   toObject() {
     return {
       id: this.#id,

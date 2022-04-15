@@ -11,6 +11,7 @@ interface RespostaProps {
 
 export default function Resposta(props: RespostaProps) {
   const resposta = props.valor;
+  const respostaRevelada = resposta.revelada ? styles.respostaRevelada : "";
 
   return (
     <>
@@ -18,32 +19,29 @@ export default function Resposta(props: RespostaProps) {
         className={styles.resposta}
         onClick={() => props.onResponse(props.indice)}
       >
-        <div className={styles.conteudoResposta}>
-          {!resposta.revelada ? (
-            <div className={styles.frente}>
-              <div
-                className={styles.letra}
-                style={{ backgroundColor: props.corFundoLetra }}
-              >
-                {props.letra}
+        <div className={`${respostaRevelada} ${styles.conteudoResposta}`}>
+          <div className={styles.frente}>
+            <div
+              className={styles.letra}
+              style={{ backgroundColor: props.corFundoLetra }}
+            >
+              {props.letra}
+            </div>
+            <div className={styles.valor}>{resposta.valor}</div>
+          </div>
+          <div className={styles.verso}>
+            {resposta.certa ? (
+              <div className={styles.certa}>
+                <div>A reposta certa é...</div>
+                <div className={styles.valor}>{resposta.valor}</div>
               </div>
-              <div className={styles.valor}>{resposta.valor}</div>
-            </div>
-          ) : (
-            <div className={styles.verso}>
-              {resposta.certa ? (
-                <div className={styles.certa}>
-                  <div>A reposta certa é...</div>
-                  <div className={styles.valor}>{resposta.valor}</div>
-                </div>
-              ) : (
-                <div className={styles.errada}>
-                  <div>A reposta informada está errada...</div>
-                  <div className={styles.valor}>{resposta.valor}</div>
-                </div>
-              )}
-            </div>
-          )}
+            ) : (
+              <div className={styles.errada}>
+                <div>A reposta informada está errada...</div>
+                <div className={styles.valor}>{resposta.valor}</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
